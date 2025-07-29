@@ -88,6 +88,8 @@ parser.add_argument('--time_dfs', action='store_true',
     help="Time each depth-first search; must be given with --verbose")
 parser.add_argument('--profile', action='store_true',
     help="If given then run inside cProfile")
+parser.add_argument('--no_program', action='store_true',
+    help="If given then do not generate programs")
 # args = parser.parse_args()
 
 
@@ -479,12 +481,14 @@ def instantiate_templates_dfs(scene_struct, template, metadata, answer_counts,
       })
 
   # Actually instantiate the template with the solutions we've found
-  text_questions, structured_questions, answers = [], [], []
+  text_questions, structured_questions, answers, queries = [], [], [], []
   for state in final_states:
     structured_questions.append(state['nodes'])
     answers.append(state['answer'])
     text = random.choice(template['text'])
+    query = template['query']
     for name, val in state['vals'].items():
+      query = replace_attribute_for_query(query, name, val, eliminate= val=='')
       if val in synonyms:
         val = random.choice(synonyms[val])
       text = text.replace(name, val)
@@ -494,8 +498,70 @@ def instantiate_templates_dfs(scene_struct, template, metadata, answer_counts,
     text = other_heuristic(text, state['vals'])
     text_questions.append(text)
 
-  return text_questions, structured_questions, answers
+    # remove error symbol in query
+    # 1. empty property: {}
+    query = query.replace('{}', '')
+    # 2. remove extra tail commas: {color:'red',}
+    query = query.replace(',}', '}')
+    queries.append(query)
 
+  return text_questions, structured_questions, answers, queries
+
+tag_map = {"<S>": "shape",
+          "<M>": "material",
+          "<Z>": "size",
+          "<C>": "color",
+          "<X>": "count",
+          "<R>": "relation",
+          "<A>": "attribute",
+          "<P>": "relation"}
+def mapping(tag):
+  return tag_map[tag]
+
+def replace_attribute_for_query(query, tag, val, eliminate=False):
+  """Replace attribute tags in query using available object properties.
+
+  Args:
+    query: The query template to perform replacement
+    tag: The tags to replace in the query
+    val: Properties to replace with
+    eliminate: Eliminate the remaining attribute tags
+
+  Returns:
+    replaced_query: The replaced query
+  """
+  text = query
+  # if tag == '<R>':
+    # Actual relation tag, else position tag.
+    # if tag == '<R>':
+    # :type
+    # relation_cand = ":" + gvars.METAINFO['relation_graph_type'][obj_group['relation']]
+    # else:
+    #   relation_cand = obj_group['relation']
+
+    # return text.replace(tag, relation_cand)
+
+  if mapping(tag) == 'shape':
+    if eliminate or val == 'thing':
+      replacer = '' # shape as Label, is empty if none
+    else:
+      replacer = ':' + str(val) # :label
+  elif mapping(tag) == 'count':
+    if eliminate:
+      replacer = ''
+    else:
+      replacer = str(val)
+  elif mapping(tag) == 'attribute':
+    if eliminate:
+      replacer = ''
+    else:
+      replacer = str(val)
+  else: # color,material,size
+    if eliminate:
+      replacer = ''
+    else: # property is "key:value,"
+      replacer = mapping(tag) + ':\'' + str(val) + "\',"
+  return text.replace(tag, replacer)
 
 
 def replace_optionals(s):
@@ -622,7 +688,7 @@ def main(args):
         print('trying template ', fn, idx)
       if args.time_dfs and args.verbose:
         tic = time.time()
-      ts, qs, ans = instantiate_templates_dfs(
+      ts, qs, ans, qrs = instantiate_templates_dfs(
                       scene_struct,
                       template,
                       metadata,
@@ -634,13 +700,14 @@ def main(args):
         toc = time.time()
         print('that took ', toc - tic)
       image_index = int(os.path.splitext(scene_fn)[0].split('_')[-1])
-      for t, q, a in zip(ts, qs, ans):
+      for t, q, a, qr in zip(ts, qs, ans, qrs):
         questions.append({
           'split': scene_info['split'],
           'image_filename': scene_fn,
           'image_index': image_index,
           'image': os.path.splitext(scene_fn)[0],
           'question': t,
+          'query': qr,
           'program': q,
           'answer': a,
           'template_filename': fn,
@@ -670,6 +737,9 @@ def main(args):
   # dirty solution is to keep the code above as-is, but here make "value_inputs"
   # an empty list for those functions that do not have "side_inputs". Gross.
   for q in questions:
+    if args.no_program:
+      del q['program']
+      continue
     for f in q['program']:
       if 'side_inputs' in f:
         f['value_inputs'] = f['side_inputs']
