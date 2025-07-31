@@ -5,7 +5,11 @@
       "Are there the same number of <Z> <C> <M> <S>s and <Z2> <C2> <M2> <S2>s?",
       "Is the number of <Z> <C> <M> <S>s the same as the number of <Z2> <C2> <M2> <S2>s?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN count(o1)=count(o2) as same",
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
+      "WITH i, count(o1) as count1",
+      "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+      "RETURN count1=count(o2) as same"],
     "nodes": [
       {
         "inputs": [],
@@ -96,7 +100,11 @@
       "Are there fewer <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
       "Is the number of <Z> <C> <M> <S>s less than the number of <Z2> <C2> <M2> <S2>s?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN count(o1)<count(o2) as same",
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
+      "WITH i, count(o1) as count1",
+      "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+      "RETURN count1<count(o2) as same"],
     "nodes": [
       {
         "inputs": [],
@@ -187,7 +195,11 @@
       "Are there more <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
       "Is the number of <Z> <C> <M> <S>s greater than the number of <Z2> <C2> <M2> <S2>s?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN count(o1)>count(o2) as same",
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
+      "WITH i, count(o1) as count1",
+      "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+      "RETURN count1>count(o2) as same"],
     "nodes": [
       {
         "inputs": [],
@@ -279,6 +291,13 @@
       "Are there an equal number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z3> <C3> <M3> <S3>s?",
       "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> the same as the number of <Z3> <C3> <M3> <S3>s?"
     ],
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH count(o2) as count2, i",
+      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "WITH count(o3) as count3, count2",
+      "RETURN count2 = count3 as same"],
     "nodes": [
       {
         "inputs": [],
@@ -394,6 +413,13 @@
       "Are there fewer <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z3> <C3> <M3> <S3>s?",
       "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> less than the number of <Z3> <C3> <M3> <S3>s?"
     ],
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH count(o2) as count2, i",
+      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "WITH count(o3) as count3, count2",
+      "RETURN count2 < count3 as same"],
     "nodes": [
       {
         "inputs": [],
@@ -509,6 +535,13 @@
       "Are there more <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z3> <C3> <M3> <S3>s?",
       "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> greater than the number of <Z3> <C3> <M3> <S3>s?"
     ],
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH count(o2) as count2, i",
+      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "WITH count(o3) as count3, count2",
+      "RETURN count2 > count3 as same"],
     "nodes": [
       {
         "inputs": [],
@@ -625,6 +658,14 @@
       "Are there an equal number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
       "Are there the same number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH count(o2) as count2, i",
+      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
+      "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "WITH count(o4) as count4, count2",
+      "RETURN count2 = count4 as same"],
     "nodes": [
       {
         "inputs": [],
@@ -781,6 +822,14 @@
       "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> less than the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
       "Are there fewer <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH count(o2) as count2, i",
+      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
+      "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "WITH count(o4) as count4, count2",
+      "RETURN count2 < count4 as same"],
     "nodes": [
       {
         "inputs": [],
@@ -937,6 +986,14 @@
       "Are there more <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
       "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> greater than the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH count(o2) as count2, i",
+      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
+      "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "WITH count(o4) as count4, count2",
+      "RETURN count2 > count4 as same"],
     "nodes": [
       {
         "inputs": [],

@@ -7,7 +7,7 @@
       "Is the <Z> <C> <M> <S> the same size as the <Z2> <C2> <M2> <S2>?",
       "Does the <Z> <C> <M> <S> have the same size as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN o1.size=o2.size as same",
+    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
     "nodes": [
       {
         "inputs": [],
@@ -124,7 +124,7 @@
       "Does the <Z> <C> <M> <S> have the same color as the <Z2> <C2> <M2> <S2>?",
       "Is the <Z> <C> <M> <S> the same color as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN o1.color=o2.color as same",
+    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.color=o2.color as same",
     "nodes": [
       {
         "inputs": [],
@@ -242,7 +242,7 @@
       "Does the <Z> <C> <M> <S> have the same material as the <Z2> <C2> <M2> <S2>?",
       "Is the <Z> <C> <M> <S> made of the same material as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN o1.material=o2.material as same",
+    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.material=o2.material as same",
     "nodes": [
       {
         "inputs": [],
@@ -359,7 +359,7 @@
       "Is the shape of the <Z> <C> <M> <S> the same as the <Z2> <C2> <M2> <S2>?",
       "Is the <Z> <C> <M> <S> the same shape as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>} RETURN labels(o1)=labels(o2) as same",
+    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN labels(o1)=labels(o2) as same",
     "nodes": [
       {
         "inputs": [],
@@ -478,6 +478,11 @@
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same size as the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its size the same as the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+      "WITH i,o",
+      "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "RETURN o2.size = o3.size as same"],
     "nodes": [
       {
         "inputs": [],
@@ -629,6 +634,11 @@
       "There is a <Z> <C> <M> <S>; is its size the same as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "There is a <Z> <C> <M> <S>; is it the same size as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+      "WITH i,o",
+      "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
+      "RETURN o.size = o3.size as same"],
     "nodes": [
       {
         "inputs": [],
@@ -780,6 +790,11 @@
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its size the same as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same size as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "RETURN o2.size = o4.size as same"],
     "nodes": [
       {
         "inputs": [],
@@ -964,6 +979,11 @@
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same color as the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its color the same as the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "RETURN o2.color = o3.color as same"],
     "nodes": [
       {
         "inputs": [],
@@ -1115,6 +1135,11 @@
       "There is a <Z> <C> <M> <S>; is its color the same as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "There is a <Z> <C> <M> <S>; is it the same color as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
+      "WITH i, o3",
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+      "RETURN o.color = o3.color as same"],
     "nodes": [
       {
         "inputs": [],
@@ -1266,6 +1291,12 @@
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its color the same as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same color as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "RETURN o2.color = o4.color as same"],
     "nodes": [
       {
         "inputs": [],
@@ -1449,6 +1480,11 @@
       "Are the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> and the <Z3> <C3> <M3> <S3> made of the same material?",
       "Is the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> made of the same material as the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "RETURN o2.material = o3.material as same"],
     "nodes": [
       {
         "inputs": [],
@@ -1599,6 +1635,11 @@
       "Is the <Z> <C> <M> <S> made of the same material as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "Are the <Z> <C> <M> <S> and the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2> made of the same material?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
+      "WITH i, o3",
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+      "RETURN o.material = o3.material as same"],
     "nodes": [
       {
         "inputs": [],
@@ -1749,6 +1790,12 @@
       "Is the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> made of the same material as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "Are the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> and the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3> made of the same material?"
     ],
+
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "RETURN o2.material = o4.material as same"],
     "nodes": [
       {
         "inputs": [],
@@ -1933,6 +1980,11 @@
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same shape as the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its shape the same as the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+      "RETURN labels(o2) = labels(o3) as same"],
     "nodes": [
       {
         "inputs": [],
@@ -2084,6 +2136,11 @@
       "There is a <Z> <C> <M> <S>; is its shape the same as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "There is a <Z> <C> <M> <S>; is it the same shape as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?"
     ],
+    "query": [
+      "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
+      "WITH i, o3",
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+      "RETURN labels(o) = labels(o3) as same"],
     "nodes": [
       {
         "inputs": [],
@@ -2235,6 +2292,12 @@
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its shape the same as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same shape as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+
+    "query": [
+      "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+      "WITH i, o2",
+      "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+      "RETURN labels(o2) = labels(o4) as same"],
     "nodes": [
       {
         "inputs": [],

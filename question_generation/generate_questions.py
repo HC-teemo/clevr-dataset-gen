@@ -10,6 +10,8 @@ import argparse, json, os, itertools, random, shutil
 import time
 import re
 
+from tqdm import tqdm
+
 import question_engine as qeng
 
 """
@@ -229,8 +231,8 @@ def other_heuristic(text, param_vals):
     v1 = param_vals.get(k1, None)
     v2 = param_vals.get(k2, None)
     if v1 != '' and v2 != '' and v1 != v2:
-      print('other has got to go! %s = %s but %s = %s'
-            % (k1, v1, k2, v2))
+      # print('other has got to go! %s = %s but %s = %s'
+      #       % (k1, v1, k2, v2))
       remove_other = True
       break
   if remove_other:
@@ -487,6 +489,8 @@ def instantiate_templates_dfs(scene_struct, template, metadata, answer_counts,
     answers.append(state['answer'])
     text = random.choice(template['text'])
     query = template['query']
+    if isinstance(query, list):
+      query = '\n'.join(query)
     for name, val in state['vals'].items():
       query = replace_attribute_for_query(query, name, val, eliminate= val=='')
       if val in synonyms:
@@ -516,7 +520,8 @@ tag_map = {"<S>": "shape",
           "<A>": "attribute",
           "<P>": "relation"}
 def mapping(tag):
-  return tag_map[tag]
+  cleaned_tag = re.sub(r'\d+', '', tag)
+  return tag_map[cleaned_tag]
 
 def replace_attribute_for_query(query, tag, val, eliminate=False):
   """Replace attribute tags in query using available object properties.
@@ -531,17 +536,8 @@ def replace_attribute_for_query(query, tag, val, eliminate=False):
     replaced_query: The replaced query
   """
   text = query
-  # if tag == '<R>':
-    # Actual relation tag, else position tag.
-    # if tag == '<R>':
-    # :type
-    # relation_cand = ":" + gvars.METAINFO['relation_graph_type'][obj_group['relation']]
-    # else:
-    #   relation_cand = obj_group['relation']
 
-    # return text.replace(tag, relation_cand)
-
-  if mapping(tag) == 'shape':
+  if mapping(tag) == 'shape' or mapping(tag) == 'relation':
     if eliminate or val == 'thing':
       replacer = '' # shape as Label, is empty if none
     else:
@@ -665,14 +661,14 @@ def main(args):
 
   questions = []
   scene_count = 0
-  for i, scene in enumerate(all_scenes):
+  for i, scene in enumerate(tqdm(all_scenes)):
     scene_fn = scene['image_filename']
     scene_struct = scene
-    print('starting image %s (%d / %d)'
-          % (scene_fn, i + 1, len(all_scenes)))
+    # print('starting image %s (%d / %d)'
+    #       % (scene_fn, i + 1, len(all_scenes)))
 
     if scene_count % args.reset_counts_every == 0:
-      print('resetting counts')
+      # print('resetting counts')
       template_counts, template_answer_counts = reset_counts()
     scene_count += 1
 

@@ -4,7 +4,7 @@
       "How many <Z> <C> <M> <S>s are there?",
       "What number of <Z> <C> <M> <S>s are there?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>} RETURN count(o) as count",
+    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN count(o) as count",
     "nodes": [
       {
         "inputs": [],
@@ -49,7 +49,7 @@
       "Are any <Z> <C> <M> <S>s visible?",
       "Is there a <Z> <C> <M> <S>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>} WITH o LIMIT 1 RETURN count(o) > 0 as exist",
+    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> WITH o LIMIT 1 RETURN count(o) > 0 as exist",
     "nodes": [
       {
         "inputs": [],
@@ -97,7 +97,7 @@
       "There is a <Z> <C> <M> <S>; what shape is it?",
       "The <Z> <C> <M> <S> is what shape?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>} RETURN labels(o)[0] as shape",
+    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN labels(o)[0] as shape",
     "nodes": [
       {
         "inputs": [],
@@ -155,7 +155,7 @@
       "What is the material of the <Z> <C> <M> <S>?",
       "What is the <Z> <C> <M> <S> made of?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>} RETURN o.material as material",
+    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.material as material",
     "nodes": [
       {
         "inputs": [],
@@ -214,7 +214,7 @@
       "The <Z> <C> <M> <S> has what color?",
       "The <Z> <C> <M> <S> is what color?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>} RETURN o.color as color",
+    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.color as color",
     "nodes": [
       {
         "inputs": [],
@@ -274,7 +274,7 @@
       "The <Z> <C> <M> <S> is what size?",
       "How big is the <Z> <C> <M> <S>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>} RETURN o.size as size",
+    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.size as size",
     "nodes": [
       {
         "inputs": [],
