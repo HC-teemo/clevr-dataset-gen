@@ -1,329 +1,334 @@
 [
-  {
-    "text": [
-      "How many <Z> <C> <M> <S>s are there?",
-      "What number of <Z> <C> <M> <S>s are there?"
-    ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN count(o) as count",
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_count"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      }
-    ],
-    "constraints": []
-  },
-  {
-    "text": [
-      "Are there any <Z> <C> <M> <S>s?",
-      "Are any <Z> <C> <M> <S>s visible?",
-      "Is there a <Z> <C> <M> <S>?"
-    ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> WITH o LIMIT 1 RETURN count(o) > 0 as exist",
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_exist"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      }
-    ],
-    "constraints": []
-  },
-  {
-    "text": [
-      "What shape is the <Z> <C> <M> <S>?",
-      "What is the shape of the <Z> <C> <M> <S>?",
-      "The <Z> <C> <M> <S> has what shape?",
-      "What is the shape of the <Z> <C> <M> <S>?",
-      "There is a <Z> <C> <M> <S>; what shape is it?",
-      "The <Z> <C> <M> <S> is what shape?"
-    ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN labels(o)[0] as shape",
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "inputs": [
-          1
-        ],
-        "type": "query_shape"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          "<S>"
-        ],
-        "type": "NULL"
-      }
-    ]
-  },
-  {
-    "text": [
-      "What material is the <Z> <C> <M> <S>?",
-      "What is the material of the <Z> <C> <M> <S>?",
-      "What is the <Z> <C> <M> <S> made of?"
-    ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.material as material",
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "inputs": [
-          1
-        ],
-        "type": "query_material"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          "<M>"
-        ],
-        "type": "NULL"
-      }
-    ]
-  },
-  {
-    "text": [
-      "What color is the <Z> <C> <M> <S>?",
-      "What is the color of the <Z> <C> <M> <S>?",
-      "The <Z> <C> <M> <S> has what color?",
-      "The <Z> <C> <M> <S> is what color?"
-    ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.color as color",
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "inputs": [
-          1
-        ],
-        "type": "query_color"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          "<C>"
-        ],
-        "type": "NULL"
-      }
-    ]
-  },
-  {
-    "text": [
-      "What size is the <Z> <C> <M> <S>?",
-      "What is the size of the <Z> <C> <M> <S>?",
-      "The <Z> <C> <M> <S> has what size?",
-      "The <Z> <C> <M> <S> is what size?",
-      "How big is the <Z> <C> <M> <S>?"
-    ],
-    "query": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.size as size",
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "inputs": [
-          1
-        ],
-        "type": "query_size"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          "<Z>"
-        ],
-        "type": "NULL"
-      }
-    ]
-  }
+   {
+      "constraints": [ ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_count"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         }
+      ],
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN count(o) AS counto",
+      "text": [
+         "How many <Z> <C> <M> <S>s are there?",
+         "What number of <Z> <C> <M> <S>s are there?"
+      ]
+   },
+   {
+      "constraints": [ ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_exist"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         }
+      ],
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> WITH o LIMIT 1 RETURN count(o)>0 AS exist",
+      "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> WITH o LIMIT 1 RETURN count(o) > 0 as exist",
+      "text": [
+         "Are there any <Z> <C> <M> <S>s?",
+         "Are any <Z> <C> <M> <S>s visible?",
+         "Is there a <Z> <C> <M> <S>?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               "<S>"
+            ],
+            "type": "NULL"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "type": "query_shape"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         }
+      ],
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN labels(o)[0] AS shape",
+      "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN labels(o)[0] as shape",
+      "text": [
+         "What shape is the <Z> <C> <M> <S>?",
+         "What is the shape of the <Z> <C> <M> <S>?",
+         "The <Z> <C> <M> <S> has what shape?",
+         "What is the shape of the <Z> <C> <M> <S>?",
+         "There is a <Z> <C> <M> <S>; what shape is it?",
+         "The <Z> <C> <M> <S> is what shape?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               "<M>"
+            ],
+            "type": "NULL"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "type": "query_material"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         }
+      ],
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.material AS material",
+      "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.material as material",
+      "text": [
+         "What material is the <Z> <C> <M> <S>?",
+         "What is the material of the <Z> <C> <M> <S>?",
+         "What is the <Z> <C> <M> <S> made of?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               "<C>"
+            ],
+            "type": "NULL"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "type": "query_color"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         }
+      ],
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.color AS color",
+      "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.color as color",
+      "text": [
+         "What color is the <Z> <C> <M> <S>?",
+         "What is the color of the <Z> <C> <M> <S>?",
+         "The <Z> <C> <M> <S> has what color?",
+         "The <Z> <C> <M> <S> is what color?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               "<Z>"
+            ],
+            "type": "NULL"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "type": "query_size"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         }
+      ],
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.size AS size",
+      "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.size as size",
+      "text": [
+         "What size is the <Z> <C> <M> <S>?",
+         "What is the size of the <Z> <C> <M> <S>?",
+         "The <Z> <C> <M> <S> has what size?",
+         "The <Z> <C> <M> <S> is what size?",
+         "How big is the <Z> <C> <M> <S>?"
+      ]
+   }
 ]

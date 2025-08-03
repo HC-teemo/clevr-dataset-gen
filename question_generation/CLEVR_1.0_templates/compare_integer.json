@@ -1,1148 +1,1241 @@
 [
-  {
-    "text": [
-      "Are there an equal number of <Z> <C> <M> <S>s and <Z2> <C2> <M2> <S2>s?",
-      "Are there the same number of <Z> <C> <M> <S>s and <Z2> <C2> <M2> <S2>s?",
-      "Is the number of <Z> <C> <M> <S>s the same as the number of <Z2> <C2> <M2> <S2>s?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
-      "WITH i, count(o1) as count1",
-      "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
-      "RETURN count1=count(o2) as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          2
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [
-          1,
-          3
-        ],
-        "type": "equal_integer"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          1,
-          3
-        ],
-        "type": "OUT_NEQ"
-      }
-    ]
-  },
-  {
-    "text": [
-      "Are there fewer <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
-      "Is the number of <Z> <C> <M> <S>s less than the number of <Z2> <C2> <M2> <S2>s?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
-      "WITH i, count(o1) as count1",
-      "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
-      "RETURN count1<count(o2) as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          2
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [
-          1,
-          3
-        ],
-        "type": "less_than"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          1,
-          3
-        ],
-        "type": "OUT_NEQ"
-      }
-    ]
-  },
-  {
-    "text": [
-      "Are there more <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
-      "Is the number of <Z> <C> <M> <S>s greater than the number of <Z2> <C2> <M2> <S2>s?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
-      "WITH i, count(o1) as count1",
-      "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
-      "RETURN count1>count(o2) as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          2
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [
-          1,
-          3
-        ],
-        "type": "greater_than"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          1,
-          3
-        ],
-        "type": "OUT_NEQ"
-      }
-    ]
-  },
-  {
-    "text": [
-      "Are there the same number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z3> <C3> <M3> <S3>s?",
-      "Are there an equal number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z3> <C3> <M3> <S3>s?",
-      "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> the same as the number of <Z3> <C3> <M3> <S3>s?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
-      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
-      "WITH count(o2) as count2, i",
-      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
-      "WITH count(o3) as count3, count2",
-      "RETURN count2 = count3 as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R>",
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          1
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z3>",
-          "<C3>",
-          "<M3>",
-          "<S3>"
-        ],
-        "inputs": [
-          3
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [
-          2,
-          4
-        ],
-        "type": "equal_integer"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z3>"
-      },
-      {
-        "type": "Color",
-        "name": "<C3>"
-      },
-      {
-        "type": "Material",
-        "name": "<M3>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S3>"
-      }
-    ],
-    "constraints": []
-  },
-  {
-    "text": [
-      "Are there fewer <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z3> <C3> <M3> <S3>s?",
-      "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> less than the number of <Z3> <C3> <M3> <S3>s?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
-      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
-      "WITH count(o2) as count2, i",
-      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
-      "WITH count(o3) as count3, count2",
-      "RETURN count2 < count3 as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R>",
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          1
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z3>",
-          "<C3>",
-          "<M3>",
-          "<S3>"
-        ],
-        "inputs": [
-          3
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [
-          2,
-          4
-        ],
-        "type": "less_than"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z3>"
-      },
-      {
-        "type": "Color",
-        "name": "<C3>"
-      },
-      {
-        "type": "Material",
-        "name": "<M3>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S3>"
-      }
-    ],
-    "constraints": []
-  },
-  {
-    "text": [
-      "Are there more <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z3> <C3> <M3> <S3>s?",
-      "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> greater than the number of <Z3> <C3> <M3> <S3>s?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
-      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
-      "WITH count(o2) as count2, i",
-      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
-      "WITH count(o3) as count3, count2",
-      "RETURN count2 > count3 as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R>",
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          1
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z3>",
-          "<C3>",
-          "<M3>",
-          "<S3>"
-        ],
-        "inputs": [
-          3
-        ],
-        "type": "filter_count"
-      },
-      {
-        "inputs": [
-          2,
-          4
-        ],
-        "type": "greater_than"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z3>"
-      },
-      {
-        "type": "Color",
-        "name": "<C3>"
-      },
-      {
-        "type": "Material",
-        "name": "<M3>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S3>"
-      }
-    ],
-    "constraints": []
-  },
-  {
-    "text": [
-      "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> the same as the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
-      "Are there an equal number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
-      "Are there the same number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
-      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
-      "WITH count(o2) as count2, i",
-      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
-      "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
-      "WITH count(o4) as count4, count2",
-      "RETURN count2 = count4 as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R>",
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          1
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z3>",
-          "<C3>",
-          "<M3>",
-          "<S3>"
-        ],
-        "inputs": [
-          3
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R2>",
-          "<Z4>",
-          "<C4>",
-          "<M4>",
-          "<S4>"
-        ],
-        "inputs": [
-          4
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [
-          2,
-          5
-        ],
-        "type": "equal_integer"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z3>"
-      },
-      {
-        "type": "Color",
-        "name": "<C3>"
-      },
-      {
-        "type": "Material",
-        "name": "<M3>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S3>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z4>"
-      },
-      {
-        "type": "Color",
-        "name": "<C4>"
-      },
-      {
-        "type": "Material",
-        "name": "<M4>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S4>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          1,
-          4
-        ],
-        "type": "OUT_NEQ"
-      }
-    ]
-  },
-  {
-    "text": [
-      "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> less than the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
-      "Are there fewer <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
-      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
-      "WITH count(o2) as count2, i",
-      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
-      "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
-      "WITH count(o4) as count4, count2",
-      "RETURN count2 < count4 as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R>",
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          1
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z3>",
-          "<C3>",
-          "<M3>",
-          "<S3>"
-        ],
-        "inputs": [
-          3
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R2>",
-          "<Z4>",
-          "<C4>",
-          "<M4>",
-          "<S4>"
-        ],
-        "inputs": [
-          4
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [
-          2,
-          5
-        ],
-        "type": "less_than"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z3>"
-      },
-      {
-        "type": "Color",
-        "name": "<C3>"
-      },
-      {
-        "type": "Material",
-        "name": "<M3>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S3>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z4>"
-      },
-      {
-        "type": "Color",
-        "name": "<C4>"
-      },
-      {
-        "type": "Material",
-        "name": "<M4>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S4>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          1,
-          4
-        ],
-        "type": "OUT_NEQ"
-      }
-    ]
-  },
-  {
-    "text": [
-      "Are there more <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
-      "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> greater than the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
-    ],
-    "query": [
-      "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
-      "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
-      "WITH count(o2) as count2, i",
-      "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
-      "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
-      "WITH count(o4) as count4, count2",
-      "RETURN count2 > count4 as same"],
-    "nodes": [
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z>",
-          "<C>",
-          "<M>",
-          "<S>"
-        ],
-        "inputs": [
-          0
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R>",
-          "<Z2>",
-          "<C2>",
-          "<M2>",
-          "<S2>"
-        ],
-        "inputs": [
-          1
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [],
-        "type": "scene"
-      },
-      {
-        "side_inputs": [
-          "<Z3>",
-          "<C3>",
-          "<M3>",
-          "<S3>"
-        ],
-        "inputs": [
-          3
-        ],
-        "type": "filter_unique"
-      },
-      {
-        "side_inputs": [
-          "<R2>",
-          "<Z4>",
-          "<C4>",
-          "<M4>",
-          "<S4>"
-        ],
-        "inputs": [
-          4
-        ],
-        "type": "relate_filter_count"
-      },
-      {
-        "inputs": [
-          2,
-          5
-        ],
-        "type": "greater_than"
-      }
-    ],
-    "params": [
-      {
-        "type": "Size",
-        "name": "<Z>"
-      },
-      {
-        "type": "Color",
-        "name": "<C>"
-      },
-      {
-        "type": "Material",
-        "name": "<M>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z2>"
-      },
-      {
-        "type": "Color",
-        "name": "<C2>"
-      },
-      {
-        "type": "Material",
-        "name": "<M2>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z3>"
-      },
-      {
-        "type": "Color",
-        "name": "<C3>"
-      },
-      {
-        "type": "Material",
-        "name": "<M3>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S3>"
-      },
-      {
-        "type": "Relation",
-        "name": "<R2>"
-      },
-      {
-        "type": "Size",
-        "name": "<Z4>"
-      },
-      {
-        "type": "Color",
-        "name": "<C4>"
-      },
-      {
-        "type": "Material",
-        "name": "<M4>"
-      },
-      {
-        "type": "Shape",
-        "name": "<S4>"
-      }
-    ],
-    "constraints": [
-      {
-        "params": [
-          1,
-          4
-        ],
-        "type": "OUT_NEQ"
-      }
-    ]
-  }
+   {
+      "constraints": [
+         {
+            "params": [
+               1,
+               3
+            ],
+            "type": "OUT_NEQ"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               2
+            ],
+            "side_inputs": [
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [
+               1,
+               3
+            ],
+            "type": "equal_integer"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " OPTIONAL  MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+         " WITH i,count(o) AS counto",
+         " OPTIONAL  MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+         " RETURN counto=count(o2) AS same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
+         "WITH i, count(o1) as count1",
+         "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+         "RETURN count1=count(o2) as same"
+      ],
+      "text": [
+         "Are there an equal number of <Z> <C> <M> <S>s and <Z2> <C2> <M2> <S2>s?",
+         "Are there the same number of <Z> <C> <M> <S>s and <Z2> <C2> <M2> <S2>s?",
+         "Is the number of <Z> <C> <M> <S>s the same as the number of <Z2> <C2> <M2> <S2>s?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               1,
+               3
+            ],
+            "type": "OUT_NEQ"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               2
+            ],
+            "side_inputs": [
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [
+               1,
+               3
+            ],
+            "type": "less_than"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " OPTIONAL  MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+         " WITH i,count(o) AS counto",
+         " OPTIONAL  MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+         " RETURN counto<count(o2) AS same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
+         "WITH i, count(o1) as count1",
+         "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+         "RETURN count1<count(o2) as same"
+      ],
+      "text": [
+         "Are there fewer <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
+         "Is the number of <Z> <C> <M> <S>s less than the number of <Z2> <C2> <M2> <S2>s?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               1,
+               3
+            ],
+            "type": "OUT_NEQ"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               2
+            ],
+            "side_inputs": [
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [
+               1,
+               3
+            ],
+            "type": "greater_than"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " OPTIONAL  MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
+         " WITH i,count(o) AS counto",
+         " OPTIONAL  MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+         " RETURN counto>count(o2) AS same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
+         "WITH i, count(o1) as count1",
+         "OPTIONAL MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
+         "RETURN count1>count(o2) as same"
+      ],
+      "text": [
+         "Are there more <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
+         "Is the number of <Z> <C> <M> <S>s greater than the number of <Z2> <C2> <M2> <S2>s?"
+      ]
+   },
+   {
+      "constraints": [ ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "side_inputs": [
+               "<R>",
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               3
+            ],
+            "side_inputs": [
+               "<Z3>",
+               "<C3>",
+               "<M3>",
+               "<S3>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [
+               2,
+               4
+            ],
+            "type": "equal_integer"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z3>",
+            "type": "Size"
+         },
+         {
+            "name": "<C3>",
+            "type": "Color"
+         },
+         {
+            "name": "<M3>",
+            "type": "Material"
+         },
+         {
+            "name": "<S3>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " MATCH (i)~[:contains]~~<objects>",
+         " WITH objects",
+         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH count(o2) AS counto2,objects",
+         " MATCH <oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "[\"o3\"] IN objects",
+         " WITH count(o3) AS counto3,counto2",
+         " RETURN counto2 = counto3 as same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+         "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+         "WITH count(o2) as count2, i",
+         "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+         "WITH count(o3) as count3, count2",
+         "RETURN count2 = count3 as same"
+      ],
+      "text": [
+         "Are there the same number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z3> <C3> <M3> <S3>s?",
+         "Are there an equal number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z3> <C3> <M3> <S3>s?",
+         "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> the same as the number of <Z3> <C3> <M3> <S3>s?"
+      ]
+   },
+   {
+      "constraints": [ ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "side_inputs": [
+               "<R>",
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               3
+            ],
+            "side_inputs": [
+               "<Z3>",
+               "<C3>",
+               "<M3>",
+               "<S3>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [
+               2,
+               4
+            ],
+            "type": "less_than"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z3>",
+            "type": "Size"
+         },
+         {
+            "name": "<C3>",
+            "type": "Color"
+         },
+         {
+            "name": "<M3>",
+            "type": "Material"
+         },
+         {
+            "name": "<S3>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " MATCH (i)~[:contains]~~<objects>",
+         " WITH objects",
+         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH count(o2) AS counto2,objects",
+         " MATCH <oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "[\"o3\"] IN objects",
+         " WITH count(o3) AS counto3,counto2",
+         " RETURN counto2 < counto3 as same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+         "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+         "WITH count(o2) as count2, i",
+         "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+         "WITH count(o3) as count3, count2",
+         "RETURN count2 < count3 as same"
+      ],
+      "text": [
+         "Are there fewer <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z3> <C3> <M3> <S3>s?",
+         "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> less than the number of <Z3> <C3> <M3> <S3>s?"
+      ]
+   },
+   {
+      "constraints": [ ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "side_inputs": [
+               "<R>",
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               3
+            ],
+            "side_inputs": [
+               "<Z3>",
+               "<C3>",
+               "<M3>",
+               "<S3>"
+            ],
+            "type": "filter_count"
+         },
+         {
+            "inputs": [
+               2,
+               4
+            ],
+            "type": "greater_than"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z3>",
+            "type": "Size"
+         },
+         {
+            "name": "<C3>",
+            "type": "Color"
+         },
+         {
+            "name": "<M3>",
+            "type": "Material"
+         },
+         {
+            "name": "<S3>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " MATCH (i)~[:contains]~~<objects>",
+         " WITH objects",
+         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH count(o2) AS counto2,objects",
+         " MATCH <oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "[\"o3\"] IN objects",
+         " WITH count(o3) AS counto3,counto2",
+         " RETURN counto2 > counto3 as same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+         "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+         "WITH count(o2) as count2, i",
+         "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
+         "WITH count(o3) as count3, count2",
+         "RETURN count2 > count3 as same"
+      ],
+      "text": [
+         "Are there more <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z3> <C3> <M3> <S3>s?",
+         "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> greater than the number of <Z3> <C3> <M3> <S3>s?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               1,
+               4
+            ],
+            "type": "OUT_NEQ"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "side_inputs": [
+               "<R>",
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               3
+            ],
+            "side_inputs": [
+               "<Z3>",
+               "<C3>",
+               "<M3>",
+               "<S3>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               4
+            ],
+            "side_inputs": [
+               "<R2>",
+               "<Z4>",
+               "<C4>",
+               "<M4>",
+               "<S4>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [
+               2,
+               5
+            ],
+            "type": "equal_integer"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z3>",
+            "type": "Size"
+         },
+         {
+            "name": "<C3>",
+            "type": "Color"
+         },
+         {
+            "name": "<M3>",
+            "type": "Material"
+         },
+         {
+            "name": "<S3>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R2>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z4>",
+            "type": "Size"
+         },
+         {
+            "name": "<C4>",
+            "type": "Color"
+         },
+         {
+            "name": "<M4>",
+            "type": "Material"
+         },
+         {
+            "name": "<S4>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " MATCH (i)~[:contains]~~<objects>",
+         " WITH objects",
+         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH count(o2) AS counto2,objects",
+         "<oo3<So3>{<Zo3><Co3><Mo3>}>~[<R2>]~~<oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
+         " WITH count(o4) AS counto4,counto2",
+         " RETURN counto2 = counto4 as same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+         "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+         "WITH count(o2) as count2, i",
+         "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
+         "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+         "WITH count(o4) as count4, count2",
+         "RETURN count2 = count4 as same"
+      ],
+      "text": [
+         "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> the same as the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
+         "Are there an equal number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
+         "Are there the same number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> and <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               1,
+               4
+            ],
+            "type": "OUT_NEQ"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "side_inputs": [
+               "<R>",
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               3
+            ],
+            "side_inputs": [
+               "<Z3>",
+               "<C3>",
+               "<M3>",
+               "<S3>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               4
+            ],
+            "side_inputs": [
+               "<R2>",
+               "<Z4>",
+               "<C4>",
+               "<M4>",
+               "<S4>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [
+               2,
+               5
+            ],
+            "type": "less_than"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z3>",
+            "type": "Size"
+         },
+         {
+            "name": "<C3>",
+            "type": "Color"
+         },
+         {
+            "name": "<M3>",
+            "type": "Material"
+         },
+         {
+            "name": "<S3>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R2>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z4>",
+            "type": "Size"
+         },
+         {
+            "name": "<C4>",
+            "type": "Color"
+         },
+         {
+            "name": "<M4>",
+            "type": "Material"
+         },
+         {
+            "name": "<S4>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " MATCH (i)~[:contains]~~<objects>",
+         " WITH objects",
+         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH count(o2) AS counto2,objects",
+         "<oo3<So3>{<Zo3><Co3><Mo3>}>~[<R2>]~~<oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
+         " WITH count(o4) AS counto4,counto2",
+         " RETURN counto2 < counto4 as same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+         "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+         "WITH count(o2) as count2, i",
+         "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
+         "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+         "WITH count(o4) as count4, count2",
+         "RETURN count2 < count4 as same"
+      ],
+      "text": [
+         "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> less than the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
+         "Are there fewer <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
+      ]
+   },
+   {
+      "constraints": [
+         {
+            "params": [
+               1,
+               4
+            ],
+            "type": "OUT_NEQ"
+         }
+      ],
+      "nodes": [
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               0
+            ],
+            "side_inputs": [
+               "<Z>",
+               "<C>",
+               "<M>",
+               "<S>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               1
+            ],
+            "side_inputs": [
+               "<R>",
+               "<Z2>",
+               "<C2>",
+               "<M2>",
+               "<S2>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [ ],
+            "type": "scene"
+         },
+         {
+            "inputs": [
+               3
+            ],
+            "side_inputs": [
+               "<Z3>",
+               "<C3>",
+               "<M3>",
+               "<S3>"
+            ],
+            "type": "filter_unique"
+         },
+         {
+            "inputs": [
+               4
+            ],
+            "side_inputs": [
+               "<R2>",
+               "<Z4>",
+               "<C4>",
+               "<M4>",
+               "<S4>"
+            ],
+            "type": "relate_filter_count"
+         },
+         {
+            "inputs": [
+               2,
+               5
+            ],
+            "type": "greater_than"
+         }
+      ],
+      "params": [
+         {
+            "name": "<Z>",
+            "type": "Size"
+         },
+         {
+            "name": "<C>",
+            "type": "Color"
+         },
+         {
+            "name": "<M>",
+            "type": "Material"
+         },
+         {
+            "name": "<S>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z2>",
+            "type": "Size"
+         },
+         {
+            "name": "<C2>",
+            "type": "Color"
+         },
+         {
+            "name": "<M2>",
+            "type": "Material"
+         },
+         {
+            "name": "<S2>",
+            "type": "Shape"
+         },
+         {
+            "name": "<Z3>",
+            "type": "Size"
+         },
+         {
+            "name": "<C3>",
+            "type": "Color"
+         },
+         {
+            "name": "<M3>",
+            "type": "Material"
+         },
+         {
+            "name": "<S3>",
+            "type": "Shape"
+         },
+         {
+            "name": "<R2>",
+            "type": "Relation"
+         },
+         {
+            "name": "<Z4>",
+            "type": "Size"
+         },
+         {
+            "name": "<C4>",
+            "type": "Color"
+         },
+         {
+            "name": "<M4>",
+            "type": "Material"
+         },
+         {
+            "name": "<S4>",
+            "type": "Shape"
+         }
+      ],
+      "query": [
+         " MATCH (i)~[:contains]~~<objects>",
+         " WITH objects",
+         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH count(o2) AS counto2,objects",
+         "<oo3<So3>{<Zo3><Co3><Mo3>}>~[<R2>]~~<oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
+         " WITH count(o4) AS counto4,counto2",
+         " RETURN counto2 > counto4 as same"
+      ],
+      "query2": [
+         "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
+         "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
+         "WITH count(o2) as count2, i",
+         "OPTIONAL MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
+         "(i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
+         "WITH count(o4) as count4, count2",
+         "RETURN count2 > count4 as same"
+      ],
+      "text": [
+         "Are there more <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> than <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
+         "Is the number of <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> greater than the number of <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
+      ]
+   }
 ]
