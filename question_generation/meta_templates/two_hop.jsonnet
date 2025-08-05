@@ -13,6 +13,8 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
+local fragement1 = frags.match_all_and + _.match + frags.obj_r_obj(o, r, o2) + frags.r_obj(r2, o3) + frags.where_in_obs([o,o2,o3]);
+
 [
   {
     "text": [
@@ -21,6 +23,7 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; how many <Z3> <C3> <M3> <S3>s are <R2> it?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what number of <Z3> <C3> <M3> <S3>s are <R2> it?"
     ],
+    "query": fragement1+frags.return_count(o3),
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -38,6 +41,7 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; are there any <Z3> <C3> <M3> <S3>s [that are] <R2> it?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is there a <Z3> <C3> <M3> <S3> [that is] <R2> it?"
     ],
+    "query": fragement1+frags.exist(o3),
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -57,6 +61,7 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is its size?",
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; how big is it?"
     ],
+    "query": fragement1+frags.return_size(o3),
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -78,6 +83,7 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what color is it?",
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is its color?"
     ],
+    "query": fragement1+frags.return_color(o3),
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -100,6 +106,7 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is it made of?",
       "What [material] is the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> made of?"
     ],
+    "query": fragement1+frags.return_material(o3),
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -121,6 +128,7 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what shape is it?",
       "There is a <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is its shape?"
     ],
+    "query": fragement1+frags.return_shape(o3),
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),

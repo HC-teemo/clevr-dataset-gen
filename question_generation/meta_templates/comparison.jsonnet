@@ -13,6 +13,17 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
+local fragement1(prop) = frags.match_filter(o) + ", " + frags.tripet_filter(o2) + frags.same(o, o2, prop);
+
+local fragement2(o, o2, o3, prop) = [
+  frags.match_all_and, 
+  frags.match_oro(o, r, o2), frags.where_in_obs([o,o2]), _.with([i, obs, o2]),
+  frags.match_one(o3), frags.where_in_obs([o3]), _.with([o2, o3]),
+  frags.same(o2, o3, prop)
+];
+
+local fragement3(prop) = frags.orooro + frags.same(o2, o4, prop);
+
 [
   {
     "text": [
@@ -22,7 +33,8 @@ local r2 = '[<R2>]';
       "Is the <Z> <C> <M> <S> the same size as the <Z2> <C2> <M2> <S2>?",
       "Does the <Z> <C> <M> <S> have the same size as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
+    "query": fragement1('size'),
+    "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -46,7 +58,8 @@ local r2 = '[<R2>]';
       "Does the <Z> <C> <M> <S> have the same color as the <Z2> <C2> <M2> <S2>?",
       "Is the <Z> <C> <M> <S> the same color as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.color=o2.color as same",
+    "query": fragement1('color'),
+    "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.color=o2.color as same",
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -71,7 +84,8 @@ local r2 = '[<R2>]';
       "Does the <Z> <C> <M> <S> have the same material as the <Z2> <C2> <M2> <S2>?",
       "Is the <Z> <C> <M> <S> made of the same material as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.material=o2.material as same",
+    "query": fragement1('material'),
+    "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.material=o2.material as same",
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -95,7 +109,8 @@ local r2 = '[<R2>]';
       "Is the shape of the <Z> <C> <M> <S> the same as the <Z2> <C2> <M2> <S2>?",
       "Is the <Z> <C> <M> <S> the same shape as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN labels(o1)=labels(o2) as same",
+    "query": fragement1('shape'),
+    "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN labels(o1)=labels(o2) as same",
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -121,7 +136,8 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same size as the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its size the same as the <Z3> <C3> <M3> <S3>?"
     ],
-    "query": [
+    "query": fragement2(o, o2, o3, 'size'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
       "WITH i,o",
       "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -152,7 +168,8 @@ local r2 = '[<R2>]';
       "There is a <Z> <C> <M> <S>; is its size the same as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "There is a <Z> <C> <M> <S>; is it the same size as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": [
+    "query": fragement2(o2, o3, o, 'size'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
       "WITH i,o",
       "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
@@ -183,7 +200,8 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its size the same as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same size as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
-    "query": [
+    "query": fragement3('size'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
@@ -215,7 +233,8 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same color as the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its color the same as the <Z3> <C3> <M3> <S3>?"
     ],
-    "query": [
+    "query": fragement2(o, o2, o3, 'color'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -246,7 +265,8 @@ local r2 = '[<R2>]';
       "There is a <Z> <C> <M> <S>; is its color the same as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "There is a <Z> <C> <M> <S>; is it the same color as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": [
+    "query": fragement2(o2, o3, o, 'color'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
       "WITH i, o3",
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
@@ -277,8 +297,8 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its color the same as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same color as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
-
-    "query": [
+    "query": fragement3('color'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
@@ -309,7 +329,8 @@ local r2 = '[<R2>]';
       "Are the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> and the <Z3> <C3> <M3> <S3> made of the same material?",
       "Is the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> made of the same material as the <Z3> <C3> <M3> <S3>?"
     ],
-    "query": [
+    "query": fragement2(o, o2, o3, 'material'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -339,7 +360,8 @@ local r2 = '[<R2>]';
       "Is the <Z> <C> <M> <S> made of the same material as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "Are the <Z> <C> <M> <S> and the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2> made of the same material?"
     ],
-    "query": [
+    "query": fragement2(o2, o3, o, 'material'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
       "WITH i, o3",
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
@@ -369,8 +391,8 @@ local r2 = '[<R2>]';
       "Is the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> made of the same material as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "Are the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S> and the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3> made of the same material?"
     ],
-
-    "query": [
+    "query": fragement3('material'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
@@ -402,7 +424,8 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same shape as the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its shape the same as the <Z3> <C3> <M3> <S3>?"
     ],
-    "query": [
+    "query": fragement2(o, o2, o3, 'shape'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -433,7 +456,8 @@ local r2 = '[<R2>]';
       "There is a <Z> <C> <M> <S>; is its shape the same as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?",
       "There is a <Z> <C> <M> <S>; is it the same shape as the <Z3> <C3> <M3> <S3> [that is] <R> the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": [
+    "query": fragement2(o2, o3, o, 'shape'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
       "WITH i, o3",
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
@@ -464,8 +488,8 @@ local r2 = '[<R2>]';
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is its shape the same as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; is it the same shape as the <Z4> <C4> <M4> <S4> [that is] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
-
-    "query": [
+    "query": fragement3('shape'),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH i, o2",
       "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",

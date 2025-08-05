@@ -108,7 +108,8 @@
             "type": "Shape"
          }
       ],
-      "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o.size=o2.size AS same",
+      "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
       "text": [
          "Do the <Z> <C> <M> <S> and the <Z2> <C2> <M2> <S2> have the same size?",
          "Is the size of the <Z> <C> <M> <S> the same as the <Z2> <C2> <M2> <S2>?",
@@ -226,7 +227,8 @@
             "type": "Shape"
          }
       ],
-      "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.color=o2.color as same",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o.color=o2.color AS same",
+      "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.color=o2.color as same",
       "text": [
          "Do the <Z> <C> <M> <S> and the <Z2> <C2> <M2> <S2> have the same color?",
          "Is the color of the <Z> <C> <M> <S> the same as the <Z2> <C2> <M2> <S2>?",
@@ -343,7 +345,8 @@
             "type": "Shape"
          }
       ],
-      "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.material=o2.material as same",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o.material=o2.material AS same",
+      "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.material=o2.material as same",
       "text": [
          "Do the <Z> <C> <M> <S> and the <Z2> <C2> <M2> <S2> have the same material?",
          "Are the <Z> <C> <M> <S> and the <Z2> <C2> <M2> <S2> made of the same material?",
@@ -461,7 +464,8 @@
             "type": "Shape"
          }
       ],
-      "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN labels(o1)=labels(o2) as same",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN labels(o)[0]=labels(o2)[0] AS same",
+      "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN labels(o1)=labels(o2) as same",
       "text": [
          "Do the <Z> <C> <M> <S> and the <Z2> <C2> <M2> <S2> have the same shape?",
          " Does the <Z> <C> <M> <S> have the same shape as the <Z2> <C2> <M2> <S2>?",
@@ -612,6 +616,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH i,objects,o2",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o3\"] IN objects",
+         " WITH o2,o3",
+         " RETURN o2.size=o3.size AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
          "WITH i,o",
          "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -769,6 +783,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o2<S2>{<Z2><C2><M2>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o2\", \"o3\"] IN objects AND [\"o2\", \"o3\"] IN objects",
+         " WITH i,objects,o3",
+         " MATCH <o<S>{<Z><C><M>}>",
+         " WHERE [\"o\"] IN objects",
+         " WITH o3,o",
+         " RETURN o3.size=o.size AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
          "WITH i,o",
          "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
@@ -958,7 +982,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects WITH i,objects,o2 MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects WITH o2,o4 RETURN o2.size=o4.size AS same",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
@@ -1116,6 +1141,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH i,objects,o2",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o3\"] IN objects",
+         " WITH o2,o3",
+         " RETURN o2.color=o3.color AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -1273,6 +1308,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o2<S2>{<Z2><C2><M2>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o2\", \"o3\"] IN objects AND [\"o2\", \"o3\"] IN objects",
+         " WITH i,objects,o3",
+         " MATCH <o<S>{<Z><C><M>}>",
+         " WHERE [\"o\"] IN objects",
+         " WITH o3,o",
+         " RETURN o3.color=o.color AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
          "WITH i, o3",
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
@@ -1462,7 +1507,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects WITH i,objects,o2 MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects WITH o2,o4 RETURN o2.color=o4.color AS same",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
@@ -1620,6 +1666,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH i,objects,o2",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o3\"] IN objects",
+         " WITH o2,o3",
+         " RETURN o2.material=o3.material AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -1776,6 +1832,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o2<S2>{<Z2><C2><M2>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o2\", \"o3\"] IN objects AND [\"o2\", \"o3\"] IN objects",
+         " WITH i,objects,o3",
+         " MATCH <o<S>{<Z><C><M>}>",
+         " WHERE [\"o\"] IN objects",
+         " WITH o3,o",
+         " RETURN o3.material=o.material AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
          "WITH i, o3",
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
@@ -1964,7 +2030,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects WITH i,objects,o2 MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects WITH o2,o4 RETURN o2.material=o4.material AS same",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",
@@ -2121,6 +2188,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " WITH i,objects,o2",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o3\"] IN objects",
+         " WITH o2,o3",
+         " RETURN labels(o2)[0]=labels(o3)[0] AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>",
@@ -2278,6 +2355,16 @@
          }
       ],
       "query": [
+         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
+         " MATCH <o2<S2>{<Z2><C2><M2>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>",
+         " WHERE [\"o2\", \"o3\"] IN objects AND [\"o2\", \"o3\"] IN objects",
+         " WITH i,objects,o3",
+         " MATCH <o<S>{<Z><C><M>}>",
+         " WHERE [\"o\"] IN objects",
+         " WITH o3,o",
+         " RETURN labels(o3)[0]=labels(o)[0] AS same"
+      ],
+      "query2": [
          "MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>, (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>~~[<R>]~<o2>",
          "WITH i, o3",
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
@@ -2467,7 +2554,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects WITH i,objects,o2 MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects WITH o2,o4 RETURN labels(o2)[0]=labels(o4)[0] AS same",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH i, o2",
          "MATCH (i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>, (i)~[:contains]~~<o4<S4>{<Z4><C4><M4>}>~~[<R2>]~<o3>",

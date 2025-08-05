@@ -419,10 +419,10 @@
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
          " WITH objects",
-         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
          "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
          " WITH count(o2) AS counto2,objects",
-         " MATCH <oo3<So3>{<Zo3><Co3><Mo3>}>",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
          "[\"o3\"] IN objects",
          " WITH count(o3) AS counto3,counto2",
          " RETURN counto2 = counto3 as same"
@@ -554,10 +554,10 @@
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
          " WITH objects",
-         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
          "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
          " WITH count(o2) AS counto2,objects",
-         " MATCH <oo3<So3>{<Zo3><Co3><Mo3>}>",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
          "[\"o3\"] IN objects",
          " WITH count(o3) AS counto3,counto2",
          " RETURN counto2 < counto3 as same"
@@ -688,10 +688,10 @@
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
          " WITH objects",
-         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
          "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
          " WITH count(o2) AS counto2,objects",
-         " MATCH <oo3<So3>{<Zo3><Co3><Mo3>}>",
+         " MATCH <o3<S3>{<Z3><C3><M3>}>",
          "[\"o3\"] IN objects",
          " WITH count(o3) AS counto3,counto2",
          " RETURN counto2 > counto3 as same"
@@ -863,10 +863,10 @@
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
          " WITH objects",
-         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
          "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
          " WITH count(o2) AS counto2,objects",
-         "<oo3<So3>{<Zo3><Co3><Mo3>}>~[<R2>]~~<oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "<o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
          "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
          " WITH count(o4) AS counto4,counto2",
          " RETURN counto2 = counto4 as same"
@@ -1040,10 +1040,10 @@
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
          " WITH objects",
-         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
          "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
          " WITH count(o2) AS counto2,objects",
-         "<oo3<So3>{<Zo3><Co3><Mo3>}>~[<R2>]~~<oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "<o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
          "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
          " WITH count(o4) AS counto4,counto2",
          " RETURN counto2 < counto4 as same"
@@ -1216,10 +1216,10 @@
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
          " WITH objects",
-         "<oo<So>{<Zo><Co><Mo>}>~[<R>]~~<oo<So>{<Zo><Co><Mo>}>",
+         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
          "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
          " WITH count(o2) AS counto2,objects",
-         "<oo3<So3>{<Zo3><Co3><Mo3>}>~[<R2>]~~<oo3<So3>{<Zo3><Co3><Mo3>}>",
+         "<o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
          "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
          " WITH count(o4) AS counto4,counto2",
          " RETURN counto2 > counto4 as same"

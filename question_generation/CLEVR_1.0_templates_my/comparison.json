@@ -7,7 +7,7 @@
       "Is the <Z> <C> <M> <S> the same size as the <Z2> <C2> <M2> <S2>?",
       "Does the <Z> <C> <M> <S> have the same size as the <Z2> <C2> <M2> <S2>?"
     ],
-    "query": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
+    "query2": "MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>, (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}> RETURN o1.size=o2.size as same",
     "nodes": [
       {
         "inputs": [],

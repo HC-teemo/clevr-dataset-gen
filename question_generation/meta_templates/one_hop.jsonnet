@@ -13,6 +13,8 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
+local fragement1() = frags.oro + frags.return_count(o2);
+
 [
   {
     "text": [
@@ -21,7 +23,8 @@ local r2 = '[<R2>]';
       "There is a <Z> <C> <M> <S>; how many <Z2> <C2> <M2> <S2>s are <R> it?",
       "There is a <Z> <C> <M> <S>; what number of <Z2> <C2> <M2> <S2>s are <R> it?"
     ],
-    "query": [
+    "query": fragement1(),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "RETURN count(o2) as count"],
@@ -39,7 +42,8 @@ params_types.r() +params_types.all_props(2),
       "Are there any <Z2> <C2> <M2> <S2>s <R> the <Z> <C> <M> <S>?",
       "There is a <Z> <C> <M> <S>; are there any <Z2> <C2> <M2> <S2>s <R> it?"
     ],
-    "query": [
+    'query': frags.oro + frags.exist(o2),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "WITH o2 LIMIT 1",
@@ -62,7 +66,8 @@ params_types.r() +params_types.all_props(2),
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; how big is it?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is its size?"
     ],
-    "query": [
+    'query': frags.oro + frags.return_size(o2),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "RETURN o2.size as size"],
@@ -86,7 +91,8 @@ params_types.r() +params_types.all_props(2),
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what color is it?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is its color?"
     ],
-    "query": [
+    'query': frags.oro + frags.return_color(o2),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "RETURN o2.color as color"],
@@ -111,7 +117,8 @@ params_types.r() +params_types.all_props(2),
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what material is it?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is it made of?"
     ],
-    "query": [
+    'query': frags.oro + frags.return_material(o2),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "RETURN o2.material as material"],
@@ -135,7 +142,8 @@ params_types.r() +params_types.all_props(2),
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what is its shape?",
       "There is a <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>; what shape is it?"
     ],
-    "query": [
+    'query': frags.oro + frags.return_shape(o2),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
       "RETURN labels(o2)[0] as shape"],

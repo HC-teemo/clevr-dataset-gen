@@ -130,7 +130,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects<o<S>{<Z><C><M>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>~~[<R2>]~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN count(o3) AS counto3",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
          "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -293,7 +294,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects<o<S>{<Z><C><M>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>~~[<R2>]~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN o3.sizesize",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
          "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -460,7 +462,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects<o<S>{<Z><C><M>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>~~[<R2>]~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN o3.colorcolor",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
          "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -626,7 +629,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects<o<S>{<Z><C><M>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>~~[<R2>]~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN o3.materialmaterial",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
          "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -794,7 +798,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects<o<S>{<Z><C><M>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>~~[<R2>]~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN labels(o3)[0] AS shape",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
          "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",

@@ -6,10 +6,21 @@ local return = ' RETURN ';
 local limit(num) =  ' LIMIT ' + num;
 local as = ' AS ';
 
-local i = '(i)';
 local e = {
   contains: '[:contains]'
 };
+local shape = 'shape';
+local image = '(i)';
+
+local i = 'i';
+local obs = 'objects';
+local o= 'o';
+local o2= 'o2';
+local o3= 'o3';
+local o4= 'o4';
+local obs = 'objects';
+local r = '[<R>]';
+local r2 = '[<R2>]';
 
 local _object_filter(id = '') = '<o%s<S%s>{<Z%s><C%s><M%s>}>' % [id, id, id, id, id];
 local _object(id = '') = '<o'+id+'>';
@@ -24,6 +35,8 @@ local _count(var) = 'count(%s)'%var;
 local _countAs(var) = _item(_count(var), '', 'count' + var);
 local _with(items) = with + std.join(',', items);
 local _return(items) = return + std.join(',', items);
+local _v_prop(var,prop)= if prop=='' then var else (if prop==shape then 'labels(%s)[0]'%var else '%s.%s'%[var, prop]);
+
 local params = {
   Z(id): {
     "type": "Size",
@@ -62,26 +75,43 @@ local params = {
     r(id=''): [params.R(id)]
   },
   query_frags: {
-    match_all(var): match + _tripet(i, e.contains, _object(var[1:])), // MATCH (i)~[:contains]~~<o>
-    match_filter(var): match + _tripet(i, e.contains, _object_filter(var[1:])), // MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>
-    match_one(id): match + _object_filter(id),
+    match_all(var): match + _tripet(image, e.contains, _object(var[1:])), // MATCH (i)~[:contains]~~<o>
+    tripet_filter(var): _tripet(image, e.contains, _object_filter(var[1:])), // (i)~[:contains]~~<o<S>{<Z><C><M>}>
+    match_filter(var): match + self.tripet_filter(var), // MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>
+    match_one(var): match + _object_filter(var[1:]),
     return_count(var): _return([_countAs(var)]), // RETURN count(o) as count
     exist(var): with + var + limit(1) + return + _item(_count(var), '>0', 'exist'), // WITH o LIMIT 1 RETURN count(o) > 0 as exist
     return_shape(var): _return([_item('labels(%s)[0]'%var, '', 'shape')]), //labels(o)[0] as shape
-    return_prop(var, prop): _return([_item(var, '.'+prop, prop)]),
+    return_prop(var, prop): _return([_item(_v_prop(var, prop), prop)]),
     return_material(var): self.return_prop(var, 'material'), //RETURN o.material as material"
     return_color(var): self.return_prop(var, 'color'),
     return_size(var): self.return_prop(var, 'size'),
     filter_in(vars, list): std.join(' AND ', [vars+' IN '+list for v in vars]),
-    obj_r_obj(id,r,id2, out=true): _tripet(_object_filter(id), r, _object_filter(id), out),
+    obj_r_obj(var,r,var2, out=true): _tripet(_object_filter(var[1:]), r, _object_filter(var2[1:]), out),
+    match_oro(var,r,var2, out=true): match + self.obj_r_obj(var, r, var2, out),
+    where_in_obs(vars): where + self.filter_in(vars, obs),
+    where_eq(var1, var2, prop): where + _v_prop(var1, prop) + '=' + _v_prop(var2, prop),
+    where_neq(var1, var2, prop): where + _v_prop(var1, prop) + '<>' + _v_prop(var2, prop),
+    r_obj(r, var2, out=true): _tripet('', r, _object_filter(var2[1:]), out),
+//
+    match_all_and: self.match_all(obs) + _with([i,obs]),
+    oro: self.match_filter(o) + ',' + self.tripet_filter(o2) + self.r_obj(r, o, false),
+    orooro: 
+      self.match_all_and +  
+      self.match_oro(o, r, o2) + self.where_in_obs([o,o2]) + _with([i, obs, o2]) +
+      self.match_oro(o3, r2, o4) + self.where_in_obs([o3,o4]) + _with([o2, o4]),
+    same(var1, var2, prop): _return([_item(_v_prop(var1, prop),'='+ _v_prop(var2, prop), 'same')]),
   },
   query_funcs: {
     optional: optional,
-    object_filter: _object_filter,
+    object_filter(var): _object_filter(var[1:]),
     with: _with,
+    match: match,
     return: _return,
+    where(w): where + w,
     item: _item,
     count: _count,
     countAs: _countAs,
+    v_prop: _v_prop,
   }
 }

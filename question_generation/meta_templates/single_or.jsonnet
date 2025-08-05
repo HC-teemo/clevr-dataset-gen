@@ -13,6 +13,15 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
+local countDual(var1, var2) = _.return([_.count(var1) + '+' + _.count(var2) + ' AS count']);
+
+local fragement1(filter='') = 
+  frags.match_all(obs) + 
+  filter + _.with([i,obs]) + 
+  frags.match_one(o) + _.object_filter(o2) +
+  frags.where_in_obs([o,o2]) +
+  countDual(o,o2);
+
 [
   {
     "text": [
@@ -21,6 +30,7 @@ local r2 = '[<R2>]';
       "What number of things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
       "What number of objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?"
     ],
+    "query": fragement1(),
     "nodes": [
       nodes.scene,
       nodes.filter('',[0]),
@@ -41,6 +51,7 @@ local r2 = '[<R2>]';
       "What number of <Z3> things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
       "What number of <Z3> objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?"
     ],
+    "query": fragement1(_.where(_.v_prop(obs, 'size') + '=<Z3>')),
     "nodes": [
       nodes.scene,
       nodes.filter('',[0]),
@@ -69,6 +80,7 @@ local r2 = '[<R2>]';
       "What number of <C3> things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
       "What number of <C3> objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?"
     ],
+    "query": fragement1(_.where(_.v_prop(obs, 'color') + '=<C3>')),
     "nodes": [
       nodes.scene,
       nodes.filter('',[0]),
@@ -97,6 +109,7 @@ local r2 = '[<R2>]';
       "What number of objects are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
       "What number of things are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
+    "query": frags.orooro + frags.where_neq(o2,o4,'') + countDual(o2, o4) ,
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -117,6 +130,7 @@ local r2 = '[<R2>]';
       "What number of <M3> things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
       "What number of <M3> objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?"
     ],
+    "query": fragement1(_.where(_.v_prop(obs, 'material') + '=<M3>')),
     "nodes": [
       nodes.scene,
       nodes.filter('',[0]),
@@ -143,6 +157,7 @@ local r2 = '[<R2>]';
       "How many <S3>s are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
       "What number of <S3>s are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?"
     ],
+    "query": fragement1(_.where(_.v_prop(obs, 'shape') + '=<S3>')),
     "nodes": [
       nodes.scene,
       nodes.scene,
@@ -171,6 +186,13 @@ local r2 = '[<R2>]';
       "What number of things are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z3> <C3> <M3> <S3>s?",
       "What number of objects are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z3> <C3> <M3> <S3>s?"
     ],
+    "query": [
+      frags.match_all_and, 
+      frags.match_oro(o, r, o2), frags.where_in_obs([o,o2]), _.with([i, obs, o2]),
+      frags.match_one(o3), frags.where_in_obs([o3]), _.with([o2, o3]),
+      frags.where_neq(o3, o2, ''),
+      countDual(o2, o3)
+    ],
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
@@ -189,6 +211,13 @@ local r2 = '[<R2>]';
       "How many objects are [either] <Z> <C> <M> <S>s or <Z3> <C3> <M3> <S3>s [that are] <R> the <Z2> <C2> <M2> <S2>?",
       "What number of things are [either] <Z> <C> <M> <S>s or <Z3> <C3> <M3> <S3>s [that are] <R> the <Z2> <C2> <M2> <S2>?",
       "What number of objects are [either] <Z> <C> <M> <S>s or <Z3> <C3> <M3> <S3>s [that are] <R> the <Z2> <C2> <M2> <S2>?"
+    ],
+    "query": [
+      frags.match_all_and, 
+      frags.match_oro(o2, r, o3), frags.where_in_obs([o2,o3]), _.with([i, obs, o3]),
+      frags.match_one(o), frags.where_in_obs([o]), _.with([o, o3]),
+      frags.where_neq(o3, o, ''),
+      countDual(o, o3)
     ],
     "nodes": [
       nodes.scene,

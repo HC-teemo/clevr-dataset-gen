@@ -13,13 +13,16 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
+local fragement1 = frags.match_all_and + frags.obj_r_obj(o, r, o3, true) + frags.r_obj(r2, o2, false) + frags.where_in_obs([o,o2,o3]);
+
 [
   {
     "text": [
       "How many <Z3> <C3> <M3> <S3>s are [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>?",
       "What number of <Z3> <C3> <M3> <S3>s are [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>?"
     ],
-    "query": [
+    "query": fragement1 + frags.return_count(o3),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
       "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -47,7 +50,8 @@ local r2 = '[<R2>]';
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what size is it?",
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; how big is it?"
     ],
-    "query": [
+    "query": fragement1 + frags.return_size(o3),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
       "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -78,7 +82,8 @@ local r2 = '[<R2>]';
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what is its color?",
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what color is it?"
     ],
-    "query": [
+    "query": fragement1 + frags.return_color(o3),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
       "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -112,7 +117,8 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what material is it?",
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what [material] is it made of?"
     ],
-    "query": [
+    "query": fragement1 + frags.return_material(o3),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
       "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",
@@ -144,7 +150,8 @@ params_types.r(2) +params_types.all_props(3),
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what shape is it?",
       "There is a <Z3> <C3> <M3> <S3> that is [both] <R2> the <Z2> <C2> <M2> <S2> and <R> the <Z> <C> <M> <S>; what is its shape?"
     ],
-    "query": [
+    "query": fragement1 + frags.return_shape(o3),
+    "query2": [
       "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
       "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>,",
       "(i)~[:contains]~~<o3<S3>{<Z3><C3><M3>}>,",

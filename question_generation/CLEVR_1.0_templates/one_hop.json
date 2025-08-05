@@ -70,7 +70,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o<S>{<Z><C><M>}> RETURN count(o2) AS counto2",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "RETURN count(o2) as count"
@@ -153,7 +154,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o<S>{<Z><C><M>}> WITH o2 LIMIT 1 RETURN count(o2)>0 AS exist",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "WITH o2 LIMIT 1",
@@ -248,7 +250,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o<S>{<Z><C><M>}> RETURN o2.sizesize",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "RETURN o2.size as size"
@@ -346,7 +349,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o<S>{<Z><C><M>}> RETURN o2.colorcolor",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "RETURN o2.color as color"
@@ -443,7 +447,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o<S>{<Z><C><M>}> RETURN o2.materialmaterial",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "RETURN o2.material as material"
@@ -541,7 +546,8 @@
             "type": "Shape"
          }
       ],
-      "query": [
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o<S>{<Z><C><M>}> RETURN labels(o2)[0] AS shape",
+      "query2": [
          "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
          "(i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>~~[<R>]~<o>",
          "RETURN labels(o2)[0] as shape"
