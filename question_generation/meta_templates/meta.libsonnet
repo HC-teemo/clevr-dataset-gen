@@ -11,14 +11,14 @@ local e = {
 };
 local shape = 'shape';
 local image = '(i)';
-
+local dic = 'distinct';
 local i = 'i';
 local obs = 'objects';
+local coll = 'collect(objects) AS objects';
 local o= 'o';
 local o2= 'o2';
 local o3= 'o3';
 local o4= 'o4';
-local obs = 'objects';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
@@ -82,11 +82,11 @@ local params = {
     return_count(var): _return([_countAs(var)]), // RETURN count(o) as count
     exist(var): with + var + limit(1) + return + _item(_count(var), '>0', 'exist'), // WITH o LIMIT 1 RETURN count(o) > 0 as exist
     return_shape(var): _return([_item('labels(%s)[0]'%var, '', 'shape')]), //labels(o)[0] as shape
-    return_prop(var, prop): _return([_item(_v_prop(var, prop), prop)]),
+    return_prop(var, prop): _return([_item(_v_prop(var, prop),'', prop)]),
     return_material(var): self.return_prop(var, 'material'), //RETURN o.material as material"
     return_color(var): self.return_prop(var, 'color'),
     return_size(var): self.return_prop(var, 'size'),
-    filter_in(vars, list): std.join(' AND ', [vars+' IN '+list for v in vars]),
+    filter_in(vars, list): std.join(' AND ', [v+' IN '+list for v in vars]),
     obj_r_obj(var,r,var2, out=true): _tripet(_object_filter(var[1:]), r, _object_filter(var2[1:]), out),
     match_oro(var,r,var2, out=true): match + self.obj_r_obj(var, r, var2, out),
     where_in_obs(vars): where + self.filter_in(vars, obs),
@@ -94,7 +94,7 @@ local params = {
     where_neq(var1, var2, prop): where + _v_prop(var1, prop) + '<>' + _v_prop(var2, prop),
     r_obj(r, var2, out=true): _tripet('', r, _object_filter(var2[1:]), out),
 //
-    match_all_and: self.match_all(obs) + _with([i,obs]),
+    match_all_and: self.match_all(obs) + _with([i, coll]),
     oro: self.match_filter(o) + ',' + self.tripet_filter(o2) + self.r_obj(r, o, false),
     orooro: 
       self.match_all_and +  
@@ -111,7 +111,10 @@ local params = {
     where(w): where + w,
     item: _item,
     count: _count,
+    countD(var): 'count(DISTINCT %s)'%var,
     countAs: _countAs,
     v_prop: _v_prop,
+    coll: coll,
+    _: ',',
   }
 }

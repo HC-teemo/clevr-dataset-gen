@@ -17,8 +17,10 @@ local fragement1(prop) = frags.match_filter(o) + ", " + frags.tripet_filter(o2) 
 
 local fragement2(o, o2, o3, prop) = [
   frags.match_all_and, 
-  frags.match_oro(o, r, o2), frags.where_in_obs([o,o2]), _.with([i, obs, o2]),
-  frags.match_one(o3), frags.where_in_obs([o3]), _.with([o2, o3]),
+  frags.match_oro(o, r, o2), frags.where_in_obs([o,o2]), 
+  // _.with([i, obs, o2]),
+  frags.match_one(o3), frags.where_in_obs([o3]),
+  //  _.with([o2, o3]),
   frags.same(o2, o3, prop)
 ];
 

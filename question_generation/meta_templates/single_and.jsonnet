@@ -13,7 +13,7 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
-local fragement1 = frags.match_all_and + frags.obj_r_obj(o, r, o3, true) + frags.r_obj(r2, o2, false) + frags.where_in_obs([o,o2,o3]);
+local fragement1 = frags.match_all_and + frags.match_oro(o, r, o3, true) + frags.r_obj(r2, o2, false) + frags.where_in_obs([o,o2,o3]);
 
 [
   {

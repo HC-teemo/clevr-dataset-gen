@@ -202,7 +202,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.materialmaterial",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.material AS material",
       "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.material as material",
       "text": [
          "What material is the <Z> <C> <M> <S>?",
@@ -261,7 +261,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.colorcolor",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.color AS color",
       "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.color as color",
       "text": [
          "What color is the <Z> <C> <M> <S>?",
@@ -321,7 +321,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.sizesize",
+      "query": " MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.size AS size",
       "query2": "MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}> RETURN o.size as size",
       "text": [
          "What size is the <Z> <C> <M> <S>?",

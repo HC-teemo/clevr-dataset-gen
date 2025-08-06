@@ -86,9 +86,8 @@
       ],
       "query": [
          " OPTIONAL  MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
-         " WITH i,count(o) AS counto",
          " OPTIONAL  MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
-         " RETURN counto=count(o2) AS same"
+         " RETURN count(DISTINCT o)=count(DISTINCT o2)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
@@ -189,9 +188,8 @@
       ],
       "query": [
          " OPTIONAL  MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
-         " WITH i,count(o) AS counto",
          " OPTIONAL  MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
-         " RETURN counto<count(o2) AS same"
+         " RETURN count(DISTINCT o)<count(DISTINCT o2)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
@@ -291,9 +289,8 @@
       ],
       "query": [
          " OPTIONAL  MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>",
-         " WITH i,count(o) AS counto",
          " OPTIONAL  MATCH (i)~[:contains]~~<o2<S2>{<Z2><C2><M2>}>",
-         " RETURN counto>count(o2) AS same"
+         " RETURN count(DISTINCT o)>count(DISTINCT o2)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
@@ -418,14 +415,12 @@
       ],
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
-         " WITH objects",
-         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
-         " WITH count(o2) AS counto2,objects",
-         " MATCH <o3<S3>{<Z3><C3><M3>}>",
-         "[\"o3\"] IN objects",
-         " WITH count(o3) AS counto3,counto2",
-         " RETURN counto2 = counto3 as same"
+         " WITH collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE o3 IN objects",
+         " RETURN count(DISTINCT o2)=count(DISTINCT o3)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
@@ -553,14 +548,12 @@
       ],
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
-         " WITH objects",
-         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
-         " WITH count(o2) AS counto2,objects",
-         " MATCH <o3<S3>{<Z3><C3><M3>}>",
-         "[\"o3\"] IN objects",
-         " WITH count(o3) AS counto3,counto2",
-         " RETURN counto2 < counto3 as same"
+         " WITH collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE o3 IN objects",
+         " RETURN count(DISTINCT o2)<count(DISTINCT o3)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
@@ -687,14 +680,12 @@
       ],
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
-         " WITH objects",
-         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
-         " WITH count(o2) AS counto2,objects",
-         " MATCH <o3<S3>{<Z3><C3><M3>}>",
-         "[\"o3\"] IN objects",
-         " WITH count(o3) AS counto3,counto2",
-         " RETURN counto2 > counto3 as same"
+         " WITH collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE o3 IN objects",
+         " RETURN count(DISTINCT o2)>count(DISTINCT o3)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
@@ -862,14 +853,12 @@
       ],
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
-         " WITH objects",
-         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
-         " WITH count(o2) AS counto2,objects",
-         "<o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
-         "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
-         " WITH count(o4) AS counto4,counto2",
-         " RETURN counto2 = counto4 as same"
+         " WITH collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
+         " WHERE o3 IN objects AND o4 IN objects",
+         " RETURN count(DISTINCT o2)=count(DISTINCT o4)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
@@ -1039,14 +1028,12 @@
       ],
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
-         " WITH objects",
-         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
-         " WITH count(o2) AS counto2,objects",
-         "<o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
-         "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
-         " WITH count(o4) AS counto4,counto2",
-         " RETURN counto2 < counto4 as same"
+         " WITH collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
+         " WHERE o3 IN objects AND o4 IN objects",
+         " RETURN count(DISTINCT o2)<count(DISTINCT o4)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",
@@ -1215,14 +1202,12 @@
       ],
       "query": [
          " MATCH (i)~[:contains]~~<objects>",
-         " WITH objects",
-         "<o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         "[\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
-         " WITH count(o2) AS counto2,objects",
-         "<o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
-         "[\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects",
-         " WITH count(o4) AS counto4,counto2",
-         " RETURN counto2 > counto4 as same"
+         " WITH collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}>",
+         " WHERE o3 IN objects AND o4 IN objects",
+         " RETURN count(DISTINCT o2)>count(DISTINCT o4)"
       ],
       "query2": [
          "OPTIONAL MATCH (i)~[:contains]~~<o<S>{<Z><C><M>}>,",

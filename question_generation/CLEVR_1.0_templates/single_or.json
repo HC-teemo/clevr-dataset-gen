@@ -90,7 +90,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}><o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects RETURN count(o)+count(o2) AS count",
+      "query": "MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects OPTIONAL  MATCH <o<S>{<Z><C><M>}> WHERE o IN objects WITH objects,o OPTIONAL  MATCH <o2<S2>{<Z2><C2><M2>}> WHERE o2 IN objects WITH collect( distinct o) + collect(distinct o2) AS all unwind all as a  RETURN count( distinct a)",
       "text": [
          "How many things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
          "How many objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
@@ -214,7 +214,7 @@
             "type": "Size"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WHERE objects.size=<Z3> WITH i,objects MATCH <o<S>{<Z><C><M>}><o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects RETURN count(o)+count(o2) AS count",
+      "query": "MATCH (i)~[:contains]~~<objects{<Z3>}> WITH i,collect(objects) AS objects OPTIONAL  MATCH <o<S>{<Z><C><M>}> WHERE o IN objects WITH objects,o OPTIONAL  MATCH <o2<S2>{<Z2><C2><M2>}> WHERE o2 IN objects WITH collect( distinct o) + collect(distinct o2) AS all unwind all as a  RETURN count( distinct a)",
       "text": [
          "How many <Z3> things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
          "How many <Z3> objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
@@ -338,7 +338,7 @@
             "type": "Color"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WHERE objects.color=<C3> WITH i,objects MATCH <o<S>{<Z><C><M>}><o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects RETURN count(o)+count(o2) AS count",
+      "query": "MATCH (i)~[:contains]~~<objects{<C3>}> WITH i,collect(objects) AS objects OPTIONAL  MATCH <o<S>{<Z><C><M>}> WHERE o IN objects WITH objects,o OPTIONAL  MATCH <o2<S2>{<Z2><C2><M2>}> WHERE o2 IN objects WITH collect( distinct o) + collect(distinct o2) AS all unwind all as a  RETURN count( distinct a)",
       "text": [
          "How many <C3> things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
          "How many <C3> objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
@@ -495,7 +495,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects WITH i,objects,o2 MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o3\", \"o4\"] IN objects AND [\"o3\", \"o4\"] IN objects WITH o2,o4 WHERE o2<>o4 RETURN count(o2)+count(o4) AS count",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}> WHERE o IN objects AND o2 IN objects WITH i,objects,o2 MATCH <o3<S3>{<Z3><C3><M3>}>~[<R2>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o3 IN objects AND o4 IN objects WITH o2,o4 WHERE o2<>o4 WITH collect( distinct o2) + collect(distinct o4) AS all unwind all as a  RETURN count( distinct a)",
       "text": [
          "How many things are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
          "How many objects are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
@@ -619,7 +619,7 @@
             "type": "Material"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WHERE objects.material=<M3> WITH i,objects MATCH <o<S>{<Z><C><M>}><o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects RETURN count(o)+count(o2) AS count",
+      "query": "MATCH (i)~[:contains]~~<objects{<M3>}> WITH i,collect(objects) AS objects OPTIONAL  MATCH <o<S>{<Z><C><M>}> WHERE o IN objects WITH objects,o OPTIONAL  MATCH <o2<S2>{<Z2><C2><M2>}> WHERE o2 IN objects WITH collect( distinct o) + collect(distinct o2) AS all unwind all as a  RETURN count( distinct a)",
       "text": [
          "How many <M3> things are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
          "How many <M3> objects are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
@@ -743,7 +743,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WHERE labels(objects)[0]=<S3> WITH i,objects MATCH <o<S>{<Z><C><M>}><o2<S2>{<Z2><C2><M2>}> WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects RETURN count(o)+count(o2) AS count",
+      "query": "MATCH (i)~[:contains]~~<objects<S3>> WITH i,collect(objects) AS objects OPTIONAL  MATCH <o<S>{<Z><C><M>}> WHERE o IN objects WITH objects,o OPTIONAL  MATCH <o2<S2>{<Z2><C2><M2>}> WHERE o2 IN objects WITH collect( distinct o) + collect(distinct o2) AS all unwind all as a  RETURN count( distinct a)",
       "text": [
          "How many <S3>s are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?",
          "What number of <S3>s are [either] <Z> <C> <M> <S>s or <Z2> <C2> <M2> <S2>s?"
@@ -866,15 +866,13 @@
          }
       ],
       "query": [
-         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
-         " MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
-         " WHERE [\"o\", \"o2\"] IN objects AND [\"o\", \"o2\"] IN objects",
+         " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects",
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>",
+         " WHERE o IN objects AND o2 IN objects",
          " WITH i,objects,o2",
-         " MATCH <o3<S3>{<Z3><C3><M3>}>",
-         " WHERE [\"o3\"] IN objects",
-         " WITH o2,o3",
-         " WHERE o3<>o2",
-         " RETURN count(o2)+count(o3) AS count"
+         " OPTIONAL  MATCH <o3<S3>{<Z3><C3><M3>}>",
+         " WHERE o3 IN objects",
+         " WITH collect( distinct o2) + collect(distinct o3) AS all unwind all as a  RETURN count( distinct a)"
       ],
       "text": [
          "How many things are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z3> <C3> <M3> <S3>s?",
@@ -1000,15 +998,13 @@
          }
       ],
       "query": [
-         " MATCH (i)~[:contains]~~<objects> WITH i,objects",
-         " MATCH <o2<S2>{<Z2><C2><M2>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>",
-         " WHERE [\"o2\", \"o3\"] IN objects AND [\"o2\", \"o3\"] IN objects",
+         " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects",
+         " OPTIONAL  MATCH <o2<S2>{<Z2><C2><M2>}>~[<R>]~~<o3<S3>{<Z3><C3><M3>}>",
+         " WHERE o2 IN objects AND o3 IN objects",
          " WITH i,objects,o3",
-         " MATCH <o<S>{<Z><C><M>}>",
-         " WHERE [\"o\"] IN objects",
-         " WITH o,o3",
-         " WHERE o3<>o",
-         " RETURN count(o)+count(o3) AS count"
+         " OPTIONAL  MATCH <o<S>{<Z><C><M>}>",
+         " WHERE o IN objects",
+         " WITH collect( distinct o) + collect(distinct o3) AS all unwind all as a  RETURN count( distinct a)"
       ],
       "text": [
          "How many things are [either] <Z> <C> <M> <S>s or <Z3> <C3> <M3> <S3>s [that are] <R> the <Z2> <C2> <M2> <S2>?",

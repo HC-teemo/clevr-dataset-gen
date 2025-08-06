@@ -13,13 +13,13 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
-local fragement1(prop) = frags.match_all(o2) + frags.tripet_filter(o) + frags.where_eq(o, o2, prop) + frags.exist(o2);
-local fragement2(prop) = frags.match_all(o2) + frags.tripet_filter(o) + frags.where_eq(o, o2, prop) + frags.return_count(o2);
+local fragement1(prop) = frags.match_all(o2)+ ','  + frags.tripet_filter(o) + frags.where_eq(o, o2, prop) + frags.exist(o2);
+local fragement2(prop) = frags.match_all(o2)+ ','  + frags.tripet_filter(o) + frags.where_eq(o, o2, prop) + frags.return_count(o2);
 
-local fragement3(prop) = frags.match_filter(o) + frags.tripet_filter(o2) + frags.where_eq(o, o2, prop) + " AND o <> o2 " + frags.exist(o2);
-local fragement4(prop) = frags.match_filter(o) + frags.tripet_filter(o2) + frags.where_eq(o, o2, prop) + " AND o <> o2 " + frags.return_count(o2);
+local fragement3(prop) = frags.match_filter(o)+ ','  + frags.tripet_filter(o2) + frags.where_eq(o, o2, prop) + " AND o <> o2 " + frags.exist(o2);
+local fragement4(prop) = frags.match_filter(o)+ ','  + frags.tripet_filter(o2) + frags.where_eq(o, o2, prop) + " AND o <> o2 " + frags.return_count(o2);
 
-local fragement5(prop, return) = frags.match_filter(o) + frags.tripet_filter(o2) + frags.where_eq(o, o2, prop) + " AND o <> o2 " + frags.return_prop(o2, return);
+local fragement5(prop, return) = frags.match_filter(o) + ',' + frags.tripet_filter(o2) + frags.where_eq(o, o2, prop) + " AND o <> o2 " + frags.return_prop(o2, return);
 [
   {
     "text": [

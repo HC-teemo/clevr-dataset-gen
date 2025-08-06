@@ -136,7 +136,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN count(o3) AS counto3",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o IN objects AND o2 IN objects AND o3 IN objects AND o4 IN objects RETURN count(o4) AS counto4",
       "text": [
          "How many <Z4> <C4> <M4> <S4>s are <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
          "What number of <Z4> <C4> <M4> <S4>s are <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
@@ -281,7 +281,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects WITH o3 LIMIT 1 RETURN count(o3)>0 AS exist",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o IN objects AND o2 IN objects AND o3 IN objects AND o4 IN objects WITH o4 LIMIT 1 RETURN count(o4)>0 AS exist",
       "text": [
          "Are there any <Z4> <C4> <M4> <S4>s [that are] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
          "Is there a <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
@@ -439,7 +439,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN o3.sizesize",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o IN objects AND o2 IN objects AND o3 IN objects AND o4 IN objects RETURN o4.size AS size",
       "text": [
          "What size is the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
          "What is the size of the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
@@ -599,7 +599,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN labels(o3)[0] AS shape",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o IN objects AND o2 IN objects AND o3 IN objects AND o4 IN objects RETURN labels(o4)[0] AS shape",
       "text": [
          "What shape is the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
          "What is the shape of the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
@@ -758,7 +758,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN o3.colorcolor",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o IN objects AND o2 IN objects AND o3 IN objects AND o4 IN objects RETURN o4.color AS color",
       "text": [
          "What color is the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
          "What is the color of the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
@@ -917,7 +917,7 @@
             "type": "Shape"
          }
       ],
-      "query": " MATCH (i)~[:contains]~~<objects> WITH i,objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects AND [\"o\", \"o2\", \"o3\"] IN objects RETURN o3.materialmaterial",
+      "query": " MATCH (i)~[:contains]~~<objects> WITH i,collect(objects) AS objects MATCH <o<S>{<Z><C><M>}>~[<R>]~~<o2<S2>{<Z2><C2><M2>}>~[<R2>]~~<o3<S3>{<Z3><C3><M3>}>~[<R3>]~~<o4<S4>{<Z4><C4><M4>}> WHERE o IN objects AND o2 IN objects AND o3 IN objects AND o4 IN objects RETURN o4.material AS material",
       "text": [
          "What material is the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",
          "What is the material of the <Z4> <C4> <M4> <S4> [that is] <R3> the <Z3> <C3> <M3> <S3> [that is] <R2> the <Z2> <C2> <M2> <S2> [that is] <R> the <Z> <C> <M> <S>?",

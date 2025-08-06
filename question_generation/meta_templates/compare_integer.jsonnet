@@ -13,34 +13,36 @@ local o4= 'o4';
 local r = '[<R>]';
 local r2 = '[<R2>]';
 
-local fragement1 = [
+
+local fragement1(op) = [
   _.optional + frags.match_filter(o),
-  _.with([_.item(i), _.countAs(o)]),
-  _.optional + frags.match_filter(o2)
+  // _.with([_.item(i), _.countAs(o)]),
+  _.optional + frags.match_filter(o2),
+  _.return([_.countD(o) + op + _.countD(o2)])
 ];
 
 local fragement2(op) = [
   frags.match_all(obs),
-  _.with([_.item(obs)]),
-  frags.obj_r_obj(o, r, o2),
-  frags.filter_in([o,o2], obs),
-  _.with([_.countAs(o2), _.item(obs)]),
-  frags.match_one(o3),
-  frags.filter_in([o3], obs),
-  _.with([_.countAs(o3), _.item('count'+o2)]),
-  _.return(['count%s %s count%s as same'%[o2, op, o3]])
+  _.with([_.coll]),
+  _.optional + frags.match_oro(o, r, o2),
+  frags.where_in_obs([o,o2]),
+  // _.with([_.countAs(o2), obs]),
+  _.optional + frags.match_one(o3),
+  frags.where_in_obs([o3]),
+  // _.with([_.countAs(o3), _.item('count'+o2)]),
+  _.return([_.countD(o2) + op + _.countD(o3)])
 ];
 
 local fragement3(op) = [
   frags.match_all(obs),
-  _.with([_.item(obs)]),
-  frags.obj_r_obj(o, r, o2),
-  frags.filter_in([o,o2], obs),
-  _.with([_.countAs(o2), _.item(obs)]),
-  frags.obj_r_obj(o3, r2, o4),
-  frags.filter_in([o3, o4], obs),
-  _.with([_.countAs(o4), _.item('count'+o2)]),
-  _.return(['count%s %s count%s as same'%[o2, op, o4]])
+  _.with([_.coll]),
+  _.optional + frags.match_oro(o, r, o2),
+  frags.where_in_obs([o,o2]),
+  // _.with([_.countAs(o2), obs]),
+  _.optional + frags.match_oro(o3, r2, o4),
+  frags.where_in_obs([o3, o4]),
+  // _.with([_.countAs(o4), _.item('count'+o2)]),
+  _.return([_.countD(o2) + op + _.countD(o4)])
 ];
 
 [
@@ -50,9 +52,7 @@ local fragement3(op) = [
       "Are there the same number of <Z> <C> <M> <S>s and <Z2> <C2> <M2> <S2>s?",
       "Is the number of <Z> <C> <M> <S>s the same as the number of <Z2> <C2> <M2> <S2>s?"
     ],
-    "query": fragement1 + [ 
-      _.return([_.item('counto', '=count(o2)', 'same')])
-    ],
+    "query": fragement1('='),
     "query2": [
       "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
       "WITH i, count(o1) as count1",
@@ -75,9 +75,7 @@ local fragement3(op) = [
       "Are there fewer <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
       "Is the number of <Z> <C> <M> <S>s less than the number of <Z2> <C2> <M2> <S2>s?"
     ],
-    "query": fragement1 + [ 
-      _.return([_.item('counto', '<count(o2)', 'same')])
-    ],
+    "query": fragement1('<'),
     "query2": [
       "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
       "WITH i, count(o1) as count1",
@@ -100,9 +98,7 @@ local fragement3(op) = [
       "Are there more <Z> <C> <M> <S>s than <Z2> <C2> <M2> <S2>s?",
       "Is the number of <Z> <C> <M> <S>s greater than the number of <Z2> <C2> <M2> <S2>s?"
     ],
-    "query": fragement1 + [ 
-      _.return([_.item('counto', '>count(o2)', 'same')])
-    ],
+    "query": fragement1('>'),
     "query2": [
       "OPTIONAL MATCH (i)~[:contains]~~<o1<S>{<Z><C><M>}>",
       "WITH i, count(o1) as count1",
