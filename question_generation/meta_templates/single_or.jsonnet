@@ -111,7 +111,9 @@ local fragement1(filter='') =
       "What number of objects are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?",
       "What number of things are [either] <Z2> <C2> <M2> <S2>s [that are] <R> the <Z> <C> <M> <S> or <Z4> <C4> <M4> <S4>s [that are] <R2> the <Z3> <C3> <M3> <S3>?"
     ],
-    "query": frags.orooro + frags.where_neq(o2,o4,'') + countDual(o2, o4) ,
+    "query": frags.match_all_and +  
+      _.optional + frags.match_oro(o, r, o2) + frags.where_in_obs([o,o2]) + _.with([i, obs, o2]) +
+      _.optional + frags.match_oro(o3, r2, o4) + frags.where_in_obs([o3,o4]) + countDual(o2, o4) ,
     "nodes": [
       nodes.scene,
       nodes.filter_unique(),
